@@ -64,6 +64,7 @@
 
 function autonomie_child_kinds_init() {
     //remove Post Kinds from the_excerpt generation.
-    remove_filter( 'the_excerpt', array( 'Kind_View', 'excerpt_response' ), 20 );
+    remove_filter( 'the_excerpt', array( 'Kind_View', 'excerpt_response' ), 9 );
+    remove_filter( 'the_content', array( 'Kind_View', 'content_response' ), 9 );
 }
 add_action( 'init', 'autonomie_child_kinds_init' );
