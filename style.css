@@ -25,3 +25,8 @@
 .response>blockquote {
 	border: none;
 }
+
+/* Make Kind Embeds responsive */
+.kind-embed * {
+    max-width: 100%;
+}
