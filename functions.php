@@ -1,168 +1,5 @@
 <?php
 /**
- * Allow arbitrary HTML in Post Kinds
- * @since K 0.8.4
- */
-define( 'POST_KINDS_KSES', true );
-function autonomie_setup() {
-    $content_width = 900;
-
-    /**
-     * Make theme available for translation
-     * Translations can be filed in the /languages/ directory
-     * If you're building a theme based on autonomie, use a find and replace
-     * to change 'autonomie' to the name of your theme in all the template files
-     */
-    load_theme_textdomain( 'autonomie', get_template_directory() . '/languages' );
-
-    // Add default posts and comments RSS feed links to head
-    add_theme_support( 'automatic-feed-links' );
-
-    // This theme uses post thumbnails
-    add_theme_support( 'post-thumbnails' );
-    set_post_thumbnail_size( $content_width, 9999 ); // Unlimited height, soft crop
-
-    // Register custom image size for image post formats.
-    add_image_size( 'autonomie-image-post', $content_width, 1250 );
-
-    /*
-     * Switch default core markup for search form, comment form, and comments
-     * to output valid HTML5.
-     */
-    add_theme_support(
-        'html5',
-        array(
-            'search-form',
-            'comment-form',
-            'comment-list',
-            'gallery',
-            'caption',
-            'widgets',
-        )
-    );
-
-    add_theme_support( 'align-wide' );
-
-    add_theme_support( 'editor-color-palette', array(
-        array(
-            'name'  => __( 'Blue', 'autonomie' ),
-            'slug'  => 'blue',
-            'color' => '#0073aa',
-        ),
-        array(
-            'name'  => __( 'Lighter blue', 'autonomie' ),
-            'slug'  => 'lighter-blue',
-            'color' => '#229fd8',
-        ),
-        array(
-            'name'  => __( 'Blue jeans', 'autonomie' ),
-            'slug'  => 'blue-jeans',
-            'color' => '#5bc0eb',
-        ),
-        array(
-            'name'  => __( 'Orioles orange', 'autonomie' ),
-            'slug'  => 'orioles-orange',
-            'color' => '#fa5b0f',
-        ),
-        array(
-            'name'  => __( 'USC gold', 'autonomie' ),
-            'slug'  => 'usc-gold',
-            'color' => '#ffcc00',
-        ),
-        array(
-            'name'  => __( 'Gargoyle gas', 'autonomie' ),
-            'slug'  => 'gargoyle-gas',
-            'color' => '#fde74c',
-        ),
-        array(
-            'name'  => __( 'Yellow', 'autonomie' ),
-            'slug'  => 'yellow',
-            'color' => '#fff9c0',
-        ),
-        array(
-            'name'  => __( 'Android green', 'autonomie' ),
-            'slug'  => 'android-green',
-            'color' => '#9bc53d',
-        ),
-        array(
-            'name'  => __( 'White', 'autonomie' ),
-            'slug'  => 'white',
-            'color' => '#fff',
-        ),
-        array(
-            'name'  => __( 'Very light gray', 'autonomie' ),
-            'slug'  => 'very-light-gray',
-            'color' => '#eee',
-        ),
-        array(
-            'name'  => __( 'Very dark gray', 'autonomie' ),
-            'slug'  => 'very-dark-gray',
-            'color' => '#444',
-        )
-    ) );
-
-    // This theme uses wp_nav_menu() in one location.
-    register_nav_menus( array(
-        'primary' => __( 'Primary Menu', 'autonomie' ),
-    ) );
-
-    // Add support for the Aside, Gallery Post Formats...
-    add_theme_support(
-        'post-formats',
-        array(
-            'aside',
-            'gallery',
-            'link',
-            'status',
-            'image',
-            'video',
-            'audio',
-            'quote',
-        )
-    );
-
-    // Nicer WYSIWYG editor
-    add_theme_support( 'editor-styles' );
-    add_editor_style( 'css/editor-style.css' );
-
-    add_theme_support( 'responsive-embeds' );
-
-    /*
-     * Let WordPress manage the document title.
-     * By adding theme support, we declare that this theme does not use a
-     * hard-coded <title> tag in the document head, and expect WordPress to
-     * provide it for us.
-     */
-    add_theme_support( 'title-tag' );
-
-    // custom logo support
-    add_theme_support(
-        'custom-logo',
-        array(
-            'height' => 30,
-            'width'  => 30,
-        )
-    );
-
-    // This theme supports a custom header
-    $custom_header_args = array(
-        'width'       => 1250,
-        'height'      => 600,
-        'header-text' => true,
-    );
-    add_theme_support( 'custom-header', $custom_header_args );
-
-    /**
-     * Draw attention to supported WebSemantics
-     */
-    add_theme_support( 'microformats2' );
-    add_theme_support( 'microformats' );
-    add_theme_support( 'microdata' );
-    add_theme_support( 'indieweb' );
-
-    //add_theme_support( 'amp' );
-}
-/**
 	 * Enqueue theme scripts
 	 *
 	 * @uses wp_enqueue_scripts() To enqueue scripts
@@ -225,6 +62,12 @@ function autonomie_enqueue_scripts() {
         wp_add_inline_style( 'autonomie-style', $css );
     }
 }
+add_action( 'after_setup_theme', 'autonomie_child_after_setup_theme' );
+/**
+ * Re-enable the built-in Links manager
+ */
+add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+
 
 function autonomie_child_after_setup_theme() {
     add_theme_support( 'soil-clean-up' );
