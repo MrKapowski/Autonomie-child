@@ -1,7 +1,7 @@
 <?php
 /**
- * The template for displaying my custom links page.
- *
+ * /* Template Name: Links Page
+ * The template for displaying Link directory pages.
  *
  * @package Autonomie-child
  * @since Autonomie-child 1.0.0
